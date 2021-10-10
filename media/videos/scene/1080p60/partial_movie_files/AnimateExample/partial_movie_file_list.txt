@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/robjm/Desktop/repos/stem_tutorials/media/videos/scene/1080p60/partial_movie_files/AnimateExample/450974505_1434306271_1158351086.mp4'
+file 'file:C:/Users/robjm/Desktop/repos/stem_tutorials/media/videos/scene/1080p60/partial_movie_files/AnimateExample/34786186_2148686299_3145662873.mp4'
+file 'file:C:/Users/robjm/Desktop/repos/stem_tutorials/media/videos/scene/1080p60/partial_movie_files/AnimateExample/34786186_1634516352_1509709614.mp4'
+file 'file:C:/Users/robjm/Desktop/repos/stem_tutorials/media/videos/scene/1080p60/partial_movie_files/AnimateExample/34786186_2148686299_2719994125.mp4'
