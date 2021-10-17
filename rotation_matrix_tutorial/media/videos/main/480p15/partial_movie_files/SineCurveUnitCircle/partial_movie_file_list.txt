@@ -1,0 +1,3 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/robjm/Desktop/repos/stem_tutorials/rotation_matrix_tutorial/media/videos/main/480p15/partial_movie_files/SineCurveUnitCircle/3163782288_1634751749_1494129691.mp4'
+file 'file:C:/Users/robjm/Desktop/repos/stem_tutorials/rotation_matrix_tutorial/media/videos/main/480p15/partial_movie_files/SineCurveUnitCircle/2201830969_398514950_1050945424.mp4'
