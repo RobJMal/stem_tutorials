@@ -6,6 +6,8 @@ class XHatVectorDerivation(Scene):
         self.show_circle_axis()
         self.show_x_coodinate_axis()
         self.show_y_hat_axis()
+        self.move_vector()
+        self.wait()
 
     def show_circle_axis(self): 
         circle_axis_length = 1.5
@@ -76,6 +78,30 @@ class XHatVectorDerivation(Scene):
         y_labels[1].next_to(axes_origin_point + np.array([0, -1, 0]), LEFT)
         self.add(y_labels[0], y_labels[1])
 
+    def move_vector(self):
+        # Starting out with dot first
+        orbit = self.circle
+        origin_point =self.circle_origin_point
 
+        dot = Dot(radius=0.08, color=YELLOW)
+        dot.move_to(orbit.point_from_proportion(0))
+        self.t_offset = 0
+        rate = 0.25
 
+        def go_around_circle(mob, dt):
+            self.t_offset += (dt * rate)
+            mob.move_to(orbit.point_from_proportion(self.t_offset % 1))
+
+        def get_line_to_circle():
+            return Line(origin_point, dot.get_center(), color=BLUE)
+
+        dot.add_updater(go_around_circle)
+
+        origin_to_circle_line = always_redraw(get_line_to_circle)
+
+        self.add(dot)
+        self.add(orbit, origin_to_circle_line)
+        self.wait(8.5)
+
+        dot.remove_updater(go_around_circle)
 
