@@ -76,9 +76,6 @@ class XHatVectorDerivation(Scene):
         y_labels[1].next_to(axes_origin_point + np.array([0, -1, 0]), LEFT)
         self.add(y_labels[0], y_labels[1])
 
-        # for i in range(len(y_labels)):
-        #     y_labels[i].next_to(axes_origin_point + np.array([0, (i*-1)+2, 0]), RIGHT)
-        #     self.add(y_labels[i])
 
 
 
