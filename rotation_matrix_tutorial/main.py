@@ -86,7 +86,7 @@ class XHatVectorDerivation(Scene):
         dot = Dot(radius=0.08, color=YELLOW)
         dot.move_to(orbit.point_from_proportion(0))
         self.t_offset = 0
-        rate = 0.25
+        rate = 0.125
 
         def go_around_circle(mob, dt):
             self.t_offset += (dt * rate)
@@ -101,7 +101,7 @@ class XHatVectorDerivation(Scene):
 
         self.add(dot)
         self.add(orbit, origin_to_circle_line)
-        self.wait(4.01)
+        self.wait(8.01)
 
         dot.remove_updater(go_around_circle)
 
