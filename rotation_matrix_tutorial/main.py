@@ -95,12 +95,27 @@ class XHatVectorDerivation(Scene):
         def get_line_to_circle():
             return Line(origin_point, dot.get_center(), color=BLUE)
 
+        self.curve_start = self.x_coodinate_origin_point
+
+        self.curve = VGroup()
+        self.curve.add(Line(self.curve_start, self.curve_start))
+        
+        def get_curve():
+            last_line = self.curve[-1]
+            x = self.curve_start[0] + self.t_offset*4
+            y = dot.get_center()[1]
+            new_line = Line(last_line.get_end(), np.array([x, y, 0]), color=YELLOW_D)
+            self.curve.add(new_line)
+
+            return self.curve
+
         dot.add_updater(go_around_circle)
 
         origin_to_circle_line = always_redraw(get_line_to_circle)
+        sine_curve_line = always_redraw(get_curve)
 
         self.add(dot)
-        self.add(orbit, origin_to_circle_line)
+        self.add(orbit, origin_to_circle_line, sine_curve_line)
         self.wait(8.01)
 
         dot.remove_updater(go_around_circle)
