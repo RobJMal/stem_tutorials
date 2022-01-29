@@ -3,13 +3,39 @@ from manim import *
 class RotationMatrix2D(Scene):
     def construct(self):
 
-        rotationMatrix2D = MobjectMatrix([
-            [MathTex(r"\cos(\theta)"), MathTex(r"-\sin(\theta)")],
-            [MathTex(r"\sin(\theta)"), MathTex(r"cos(\theta)")]
-        ],
-        h_buff = 2)
+        rotation_matrix_2d = MobjectMatrix(
+            [[MathTex(r"\cos(\theta)"), MathTex(r"-\sin(\theta)")],
+            [MathTex(r"\sin(\theta)"), MathTex(r"cos(\theta)")]],
+            h_buff = 2,
+            bracket_h_buff = MED_SMALL_BUFF
+        )
 
-        self.add(rotationMatrix2D)
+        rotation_matrix_2d_question_mark = MobjectMatrix(
+            [[MathTex(r"???"), MathTex(r"???")],
+            [MathTex(r"???"), MathTex(r"???")]],
+            h_buff = 2,
+        )
+
+        # rotation_matrix_2d_how = MobjectMatrix(
+        #     [[MathTex(r"H"), MathTex(r"W")],
+        #     [MathTex(r"O"), MathTex(r"?")]],
+        #     h_buff = 2,
+        # )
+
+        # rotation_matrix_2d_why = MobjectMatrix(
+        #     [[MathTex(r"W"), MathTex(r"H")],
+        #     [MathTex(r"Y"), MathTex(r"?")]],
+        #     h_buff = 2,
+        # )
+
+        self.play(Create(rotation_matrix_2d), run_time=2, lag_ratio=0.1)
+        self.wait(1)
+        self.play(Transform(rotation_matrix_2d, rotation_matrix_2d_question_mark), run_time=1)
+        self.wait(2)
+        # self.play(ReplacementTransform(Transform(rotation_matrix_2d, rotation_matrix_2d_question_mark), rotation_matrix_2d_how), run_time=2)
+        # self.wait(1)
+        # self.play(Transform(rotation_matrix_2d_how, rotation_matrix_2d_why), run_time=2)
+        # self.wait(1)
 
 class XHatVectorDerivation(Scene):
     def construct(self):
