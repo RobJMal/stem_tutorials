@@ -1,47 +1,46 @@
 from manim import *
-from numpy import cos
 
 class RotationMatrix2D(Scene):
     def construct(self):
 
         rotationMatrix2D = MobjectMatrix([
-            [MathTex(r"\cos()")],
-            [MathTex(r"\sin()")]
-        ])
+            [MathTex(r"\cos(\theta)"), MathTex(r"-\sin(\theta)")],
+            [MathTex(r"\sin(\theta)"), MathTex(r"cos(\theta)")]
+        ],
+        h_buff = 2)
 
         self.add(rotationMatrix2D)
-
 
 class XHatVectorDerivation(Scene):
     def construct(self):
         self.e = ValueTracker(0.01)  # Tracks the end value of both functions 
 
         # --------------- Unit circle plotting ---------------
-        unitCircleAxes = PolarPlane(size=3,
+        unit_circle_axes = PolarPlane(size=3,
                                     azimuth_units="PI radians",
                                     background_line_style={"stroke_color": BLACK,
                                                             "stroke_width" : 2,
                                                             "stroke_opacity" : 1
                                                             }
         )
-        unitCircleAxes.move_to([-4, 0, 0])
+        unit_circle_axes.move_to([-4, 0, 0])
 
-        unitCircleGraph = always_redraw(lambda : 
-                                            ParametricFunction(lambda t : unitCircleAxes.polar_to_point(3, t),
+        unit_circle_graph = always_redraw(lambda : 
+                                            ParametricFunction(lambda t : unit_circle_axes.polar_to_point(3, t),
                                                                 t_range=[0, self.e.get_value()],
                                                                 color = GREEN
                                             )
         )
-        unitCircleXVector = always_redraw(lambda : Line(start=unitCircleAxes.get_origin(), end=unitCircleGraph.get_end(), color=RED).add_tip())
+        unit_circle_x_vector = always_redraw(lambda : Line(start=unit_circle_axes.get_origin(), end=unit_circle_graph.get_end(), color=RED).add_tip())
 
-        # --------------- Cosine curve plotting ---------------
-        cosineCurveAxes = Axes(x_range=[0, 2*PI, PI/2], 
+        # --------------- X-component curve plotting ---------------
+        x_component_plot_axes = Axes(x_range=[0, 2*PI, PI/2], 
                                 x_length=3, 
                                 y_range=[-1.0, 1.0, 1], 
                                 y_length=2, 
                                 tips=False
         )
-        cosineCurveAxes.add_coordinates(
+        x_component_plot_axes.add_coordinates(
             {
                 PI/2 : MathTex(r"\frac{\pi}{2}"),
                 PI : MathTex("\pi"),
@@ -54,16 +53,16 @@ class XHatVectorDerivation(Scene):
                 1.0 : MathTex("1"),
             }
         )
-        cosineCurveAxes.move_to([1, 2, 0])    # Location of axes 
-        cosineCurveGraph = always_redraw(lambda : cosineCurveAxes.get_graph(lambda x : np.cos(x), 
-                                                                            x_range=[0, self.e.get_value()], 
+        x_component_plot_axes.move_to([1, 2, 0])    # Location of axes 
+        x_component_plot_graph = always_redraw(lambda : x_component_plot_axes.plot(lambda x : np.cos(x), 
+                                                                            [0, self.e.get_value()], 
                                                                             color=GREEN)
         )
-        cosineCuveEndDot = always_redraw(lambda : Dot(fill_color = YELLOW, fill_opacity=0.8).scale(0.5).move_to(cosineCurveGraph.get_end()))
+        x_component_end_dot = always_redraw(lambda : Dot(fill_color = YELLOW, fill_opacity=0.8).scale(0.5).move_to(x_component_plot_graph.get_end()))
 
-        # --------------- Sine curve plotting ---------------
-        sineCurveAxes = Axes(x_range=[0, 2*PI, PI/2], x_length=3, y_range=[-1.0, 1.0, 1], y_length=2, tips=False)
-        sineCurveAxes.add_coordinates(
+        # --------------- Y-component curve plotting ---------------
+        y_component_plot_axes = Axes(x_range=[0, 2*PI, PI/2], x_length=3, y_range=[-1.0, 1.0, 1], y_length=2, tips=False)
+        y_component_plot_axes.add_coordinates(
             {
                 PI/2 : MathTex(r"\frac{\pi}{2}"),
                 PI : MathTex("\pi"),
@@ -76,20 +75,19 @@ class XHatVectorDerivation(Scene):
                 1.0 : MathTex("1"),
             }
         )
-        sineCurveAxes.move_to([1, -2, 0])    # Location of axes
-        sineCurveGraph = always_redraw(lambda : sineCurveAxes.get_graph(lambda x : np.sin(x), 
-                                                                        x_range=[0, self.e.get_value()], 
+        y_component_plot_axes.move_to([1, -2, 0])    # Location of axes
+        y_component_plot_graph = always_redraw(lambda : y_component_plot_axes.plot(lambda x : np.sin(x), 
+                                                                        [0, self.e.get_value()], 
                                                                         color=GREEN)
         )
-        sineCuveEndDot = always_redraw(lambda : Dot(fill_color = YELLOW, fill_opacity=0.8).scale(0.5).move_to(sineCurveGraph.get_end()))
+        y_component_end_dot = always_redraw(lambda : Dot(fill_color = YELLOW, fill_opacity=0.8).scale(0.5).move_to(y_component_plot_graph.get_end()))
         
         # Playing out the animation 
-        self.play(Create(unitCircleAxes), Create(cosineCurveAxes), Create(sineCurveAxes), run_time=3, lag_ratio=0.25)
-        self.add(cosineCurveGraph, cosineCuveEndDot, sineCurveGraph, sineCuveEndDot, unitCircleGraph, unitCircleXVector)
+        self.play(Create(unit_circle_axes), Create(x_component_plot_axes), Create(y_component_plot_axes), run_time=3, lag_ratio=0.25)
+        self.add(x_component_plot_graph, x_component_end_dot, y_component_plot_graph, y_component_end_dot, unit_circle_graph, unit_circle_x_vector)
         self.wait(1)
         self.play(self.e.animate.set_value(2*PI), run_time=6, rate_functions=linear)
         self.wait(1)
-
 
 class YHatVectorDerivation(Scene):
     def construct(self):
@@ -111,7 +109,7 @@ class YHatVectorDerivation(Scene):
                                                                 color = GREEN
                                             )
         )
-        unit_circle_y_vector = always_redraw(lambda : Line(start=unit_circle_axes.get_origin(), end=unit_circle_graph.get_end(), color=BLUE_A).add_tip())
+        unit_circle_y_vector = always_redraw(lambda : Line(start=unit_circle_axes.get_origin(), end=unit_circle_graph.get_end(), color=BLUE).add_tip())
 
         # --------------- X-component curve plotting ---------------
         x_component_plot_axes = Axes(x_range=[0, 2*PI, PI/2], 
