@@ -37,6 +37,24 @@ class RotationMatrix2D(Scene):
         # self.play(Transform(rotation_matrix_2d_how, rotation_matrix_2d_why), run_time=2)
         # self.wait(1)
 
+class VectorConceptions(Scene):
+    def construct(self):
+        pet_vector_example = MobjectMatrix(
+            [MathTex("cats"),
+            MathTex("dogs")],
+        )
+
+        vector_component_example =  MobjectMatrix(
+            [MathTex("x"),
+            MathTex("y"),
+            MathTex("z")],
+        )
+
+        self.play(Create(pet_vector_example), run_time=2, lag_ratio=0.1)
+        self.wait(3)
+        self.play(Transform(pet_vector_example, vector_component_example), run_time=1)
+        self.wait(2)
+
 class XHatVectorDerivation(Scene):
     def construct(self):
         self.e = ValueTracker(0.01)  # Tracks the end value of both functions 
@@ -192,7 +210,6 @@ class YHatVectorDerivation(Scene):
         self.wait(1)
         self.play(self.e.animate.set_value(2*PI), run_time=6, rate_functions=linear)
         self.wait(1)
-
 
 class DrawingUnitCircle(Scene):
     def construct(self):
